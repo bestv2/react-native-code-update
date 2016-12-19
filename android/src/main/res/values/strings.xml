@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RNCodeUpdate</string>
+    <string name="tip_network_error">没有可用的网络</string>
+</resources>

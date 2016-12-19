@@ -1,0 +1,448 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BA1677401E07741500E7F9BE /* RCTUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA16773B1E07741500E7F9BE /* RCTUpdateManager.m */; };
+		BA1677411E07741500E7F9BE /* UpdateDownloadHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BA16773D1E07741500E7F9BE /* UpdateDownloadHandler.m */; };
+		BA1677BA1E077ECD00E7F9BE /* aes.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677961E07759D00E7F9BE /* aes.h */; };
+		BA1677BB1E077ECD00E7F9BE /* aes_via_ace.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677971E07759D00E7F9BE /* aes_via_ace.h */; };
+		BA1677BC1E077ECD00E7F9BE /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677981E07759D00E7F9BE /* aescrypt.c */; };
+		BA1677BD1E077ECD00E7F9BE /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677991E07759D00E7F9BE /* aeskey.c */; };
+		BA1677BE1E077ECD00E7F9BE /* aesopt.h in Sources */ = {isa = PBXBuildFile; fileRef = BA16779A1E07759D00E7F9BE /* aesopt.h */; };
+		BA1677BF1E077ECD00E7F9BE /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = BA16779B1E07759D00E7F9BE /* aestab.c */; };
+		BA1677C01E077ECD00E7F9BE /* aestab.h in Sources */ = {isa = PBXBuildFile; fileRef = BA16779C1E07759D00E7F9BE /* aestab.h */; };
+		BA1677C11E077ECD00E7F9BE /* brg_endian.h in Sources */ = {isa = PBXBuildFile; fileRef = BA16779D1E07759D00E7F9BE /* brg_endian.h */; };
+		BA1677C21E077ECD00E7F9BE /* brg_types.h in Sources */ = {isa = PBXBuildFile; fileRef = BA16779E1E07759D00E7F9BE /* brg_types.h */; };
+		BA1677C31E077ECD00E7F9BE /* entropy.c in Sources */ = {isa = PBXBuildFile; fileRef = BA16779F1E07759D00E7F9BE /* entropy.c */; };
+		BA1677C41E077ECD00E7F9BE /* entropy.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A01E07759D00E7F9BE /* entropy.h */; };
+		BA1677C51E077ECD00E7F9BE /* fileenc.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A11E07759D00E7F9BE /* fileenc.c */; };
+		BA1677C61E077ECD00E7F9BE /* fileenc.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A21E07759D00E7F9BE /* fileenc.h */; };
+		BA1677C71E077ECD00E7F9BE /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A31E07759D00E7F9BE /* hmac.c */; };
+		BA1677C81E077ECD00E7F9BE /* hmac.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A41E07759D00E7F9BE /* hmac.h */; };
+		BA1677C91E077ECD00E7F9BE /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A51E07759D00E7F9BE /* prng.c */; };
+		BA1677CA1E077ECD00E7F9BE /* prng.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A61E07759D00E7F9BE /* prng.h */; };
+		BA1677CB1E077ECD00E7F9BE /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A71E07759D00E7F9BE /* pwd2key.c */; };
+		BA1677CC1E077ECD00E7F9BE /* pwd2key.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A81E07759D00E7F9BE /* pwd2key.h */; };
+		BA1677CD1E077ECD00E7F9BE /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A91E07759D00E7F9BE /* sha1.c */; };
+		BA1677CE1E077ECD00E7F9BE /* sha1.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AA1E07759D00E7F9BE /* sha1.h */; };
+		BA1677CF1E077ECD00E7F9BE /* Common.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AB1E07759D00E7F9BE /* Common.h */; };
+		BA1677D01E077ECD00E7F9BE /* Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AC1E07759D00E7F9BE /* Info.plist */; };
+		BA1677D11E077ECD00E7F9BE /* crypt.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AE1E07759D00E7F9BE /* crypt.h */; };
+		BA1677D21E077ECD00E7F9BE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AF1E07759D00E7F9BE /* ioapi.c */; };
+		BA1677D31E077ECD00E7F9BE /* ioapi.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B01E07759D00E7F9BE /* ioapi.h */; };
+		BA1677D41E077ECD00E7F9BE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B11E07759D00E7F9BE /* mztools.c */; };
+		BA1677D51E077ECD00E7F9BE /* mztools.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B21E07759D00E7F9BE /* mztools.h */; };
+		BA1677D61E077ECD00E7F9BE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B31E07759D00E7F9BE /* unzip.c */; };
+		BA1677D71E077ECD00E7F9BE /* unzip.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B41E07759D00E7F9BE /* unzip.h */; };
+		BA1677D81E077ECD00E7F9BE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B51E07759D00E7F9BE /* zip.c */; };
+		BA1677D91E077ECD00E7F9BE /* zip.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B61E07759D00E7F9BE /* zip.h */; };
+		BA1677DA1E077ECD00E7F9BE /* SSZipArchive.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B71E07759D00E7F9BE /* SSZipArchive.h */; };
+		BA1677DB1E077ECD00E7F9BE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B81E07759D00E7F9BE /* SSZipArchive.m */; };
+		BA1677DC1E077ECD00E7F9BE /* ZipArchive.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B91E07759D00E7F9BE /* ZipArchive.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BA16772C1E0773EC00E7F9BE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BA16772E1E0773EC00E7F9BE /* libReactNativeCodeUpdate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReactNativeCodeUpdate.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA16773A1E07741500E7F9BE /* RCTUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTUpdateManager.h; sourceTree = "<group>"; };
+		BA16773B1E07741500E7F9BE /* RCTUpdateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTUpdateManager.m; sourceTree = "<group>"; };
+		BA16773C1E07741500E7F9BE /* UpdateDownloadHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateDownloadHandler.h; sourceTree = "<group>"; };
+		BA16773D1E07741500E7F9BE /* UpdateDownloadHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateDownloadHandler.m; sourceTree = "<group>"; };
+		BA1677961E07759D00E7F9BE /* aes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
+		BA1677971E07759D00E7F9BE /* aes_via_ace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aes_via_ace.h; sourceTree = "<group>"; };
+		BA1677981E07759D00E7F9BE /* aescrypt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aescrypt.c; sourceTree = "<group>"; };
+		BA1677991E07759D00E7F9BE /* aeskey.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aeskey.c; sourceTree = "<group>"; };
+		BA16779A1E07759D00E7F9BE /* aesopt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aesopt.h; sourceTree = "<group>"; };
+		BA16779B1E07759D00E7F9BE /* aestab.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aestab.c; sourceTree = "<group>"; };
+		BA16779C1E07759D00E7F9BE /* aestab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aestab.h; sourceTree = "<group>"; };
+		BA16779D1E07759D00E7F9BE /* brg_endian.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = brg_endian.h; sourceTree = "<group>"; };
+		BA16779E1E07759D00E7F9BE /* brg_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = brg_types.h; sourceTree = "<group>"; };
+		BA16779F1E07759D00E7F9BE /* entropy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = entropy.c; sourceTree = "<group>"; };
+		BA1677A01E07759D00E7F9BE /* entropy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = entropy.h; sourceTree = "<group>"; };
+		BA1677A11E07759D00E7F9BE /* fileenc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fileenc.c; sourceTree = "<group>"; };
+		BA1677A21E07759D00E7F9BE /* fileenc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fileenc.h; sourceTree = "<group>"; };
+		BA1677A31E07759D00E7F9BE /* hmac.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
+		BA1677A41E07759D00E7F9BE /* hmac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		BA1677A51E07759D00E7F9BE /* prng.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = prng.c; sourceTree = "<group>"; };
+		BA1677A61E07759D00E7F9BE /* prng.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = prng.h; sourceTree = "<group>"; };
+		BA1677A71E07759D00E7F9BE /* pwd2key.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pwd2key.c; sourceTree = "<group>"; };
+		BA1677A81E07759D00E7F9BE /* pwd2key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pwd2key.h; sourceTree = "<group>"; };
+		BA1677A91E07759D00E7F9BE /* sha1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
+		BA1677AA1E07759D00E7F9BE /* sha1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
+		BA1677AB1E07759D00E7F9BE /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		BA1677AC1E07759D00E7F9BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA1677AE1E07759D00E7F9BE /* crypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		BA1677AF1E07759D00E7F9BE /* ioapi.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		BA1677B01E07759D00E7F9BE /* ioapi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		BA1677B11E07759D00E7F9BE /* mztools.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		BA1677B21E07759D00E7F9BE /* mztools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		BA1677B31E07759D00E7F9BE /* unzip.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		BA1677B41E07759D00E7F9BE /* unzip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		BA1677B51E07759D00E7F9BE /* zip.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		BA1677B61E07759D00E7F9BE /* zip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		BA1677B71E07759D00E7F9BE /* SSZipArchive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		BA1677B81E07759D00E7F9BE /* SSZipArchive.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
+		BA1677B91E07759D00E7F9BE /* ZipArchive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BA16772B1E0773EC00E7F9BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BA1677251E0773EC00E7F9BE = {
+			isa = PBXGroup;
+			children = (
+				BA1677941E07759D00E7F9BE /* SSZipArchive */,
+				BA16773A1E07741500E7F9BE /* RCTUpdateManager.h */,
+				BA16773B1E07741500E7F9BE /* RCTUpdateManager.m */,
+				BA16773C1E07741500E7F9BE /* UpdateDownloadHandler.h */,
+				BA16773D1E07741500E7F9BE /* UpdateDownloadHandler.m */,
+				BA16772F1E0773EC00E7F9BE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BA16772F1E0773EC00E7F9BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BA16772E1E0773EC00E7F9BE /* libReactNativeCodeUpdate.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BA1677941E07759D00E7F9BE /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				BA1677951E07759D00E7F9BE /* aes */,
+				BA1677AB1E07759D00E7F9BE /* Common.h */,
+				BA1677AC1E07759D00E7F9BE /* Info.plist */,
+				BA1677AD1E07759D00E7F9BE /* minizip */,
+				BA1677B71E07759D00E7F9BE /* SSZipArchive.h */,
+				BA1677B81E07759D00E7F9BE /* SSZipArchive.m */,
+				BA1677B91E07759D00E7F9BE /* ZipArchive.h */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		BA1677951E07759D00E7F9BE /* aes */ = {
+			isa = PBXGroup;
+			children = (
+				BA1677961E07759D00E7F9BE /* aes.h */,
+				BA1677971E07759D00E7F9BE /* aes_via_ace.h */,
+				BA1677981E07759D00E7F9BE /* aescrypt.c */,
+				BA1677991E07759D00E7F9BE /* aeskey.c */,
+				BA16779A1E07759D00E7F9BE /* aesopt.h */,
+				BA16779B1E07759D00E7F9BE /* aestab.c */,
+				BA16779C1E07759D00E7F9BE /* aestab.h */,
+				BA16779D1E07759D00E7F9BE /* brg_endian.h */,
+				BA16779E1E07759D00E7F9BE /* brg_types.h */,
+				BA16779F1E07759D00E7F9BE /* entropy.c */,
+				BA1677A01E07759D00E7F9BE /* entropy.h */,
+				BA1677A11E07759D00E7F9BE /* fileenc.c */,
+				BA1677A21E07759D00E7F9BE /* fileenc.h */,
+				BA1677A31E07759D00E7F9BE /* hmac.c */,
+				BA1677A41E07759D00E7F9BE /* hmac.h */,
+				BA1677A51E07759D00E7F9BE /* prng.c */,
+				BA1677A61E07759D00E7F9BE /* prng.h */,
+				BA1677A71E07759D00E7F9BE /* pwd2key.c */,
+				BA1677A81E07759D00E7F9BE /* pwd2key.h */,
+				BA1677A91E07759D00E7F9BE /* sha1.c */,
+				BA1677AA1E07759D00E7F9BE /* sha1.h */,
+			);
+			path = aes;
+			sourceTree = "<group>";
+		};
+		BA1677AD1E07759D00E7F9BE /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				BA1677AE1E07759D00E7F9BE /* crypt.h */,
+				BA1677AF1E07759D00E7F9BE /* ioapi.c */,
+				BA1677B01E07759D00E7F9BE /* ioapi.h */,
+				BA1677B11E07759D00E7F9BE /* mztools.c */,
+				BA1677B21E07759D00E7F9BE /* mztools.h */,
+				BA1677B31E07759D00E7F9BE /* unzip.c */,
+				BA1677B41E07759D00E7F9BE /* unzip.h */,
+				BA1677B51E07759D00E7F9BE /* zip.c */,
+				BA1677B61E07759D00E7F9BE /* zip.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BA16772D1E0773EC00E7F9BE /* ReactNativeCodeUpdate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA1677371E0773EC00E7F9BE /* Build configuration list for PBXNativeTarget "ReactNativeCodeUpdate" */;
+			buildPhases = (
+				BA16772A1E0773EC00E7F9BE /* Sources */,
+				BA16772B1E0773EC00E7F9BE /* Frameworks */,
+				BA16772C1E0773EC00E7F9BE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReactNativeCodeUpdate;
+			productName = ReactNativeCodeUpdate;
+			productReference = BA16772E1E0773EC00E7F9BE /* libReactNativeCodeUpdate.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BA1677261E0773EC00E7F9BE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "王舵";
+				TargetAttributes = {
+					BA16772D1E0773EC00E7F9BE = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = VDR646MMJD;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = BA1677291E0773EC00E7F9BE /* Build configuration list for PBXProject "ReactNativeCodeUpdate" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BA1677251E0773EC00E7F9BE;
+			productRefGroup = BA16772F1E0773EC00E7F9BE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BA16772D1E0773EC00E7F9BE /* ReactNativeCodeUpdate */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BA16772A1E0773EC00E7F9BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA1677BA1E077ECD00E7F9BE /* aes.h in Sources */,
+				BA1677BB1E077ECD00E7F9BE /* aes_via_ace.h in Sources */,
+				BA1677BC1E077ECD00E7F9BE /* aescrypt.c in Sources */,
+				BA1677BD1E077ECD00E7F9BE /* aeskey.c in Sources */,
+				BA1677BE1E077ECD00E7F9BE /* aesopt.h in Sources */,
+				BA1677BF1E077ECD00E7F9BE /* aestab.c in Sources */,
+				BA1677C01E077ECD00E7F9BE /* aestab.h in Sources */,
+				BA1677C11E077ECD00E7F9BE /* brg_endian.h in Sources */,
+				BA1677C21E077ECD00E7F9BE /* brg_types.h in Sources */,
+				BA1677C31E077ECD00E7F9BE /* entropy.c in Sources */,
+				BA1677C41E077ECD00E7F9BE /* entropy.h in Sources */,
+				BA1677C51E077ECD00E7F9BE /* fileenc.c in Sources */,
+				BA1677C61E077ECD00E7F9BE /* fileenc.h in Sources */,
+				BA1677C71E077ECD00E7F9BE /* hmac.c in Sources */,
+				BA1677C81E077ECD00E7F9BE /* hmac.h in Sources */,
+				BA1677C91E077ECD00E7F9BE /* prng.c in Sources */,
+				BA1677CA1E077ECD00E7F9BE /* prng.h in Sources */,
+				BA1677CB1E077ECD00E7F9BE /* pwd2key.c in Sources */,
+				BA1677CC1E077ECD00E7F9BE /* pwd2key.h in Sources */,
+				BA1677CD1E077ECD00E7F9BE /* sha1.c in Sources */,
+				BA1677CE1E077ECD00E7F9BE /* sha1.h in Sources */,
+				BA1677CF1E077ECD00E7F9BE /* Common.h in Sources */,
+				BA1677D01E077ECD00E7F9BE /* Info.plist in Sources */,
+				BA1677D11E077ECD00E7F9BE /* crypt.h in Sources */,
+				BA1677D21E077ECD00E7F9BE /* ioapi.c in Sources */,
+				BA1677D31E077ECD00E7F9BE /* ioapi.h in Sources */,
+				BA1677D41E077ECD00E7F9BE /* mztools.c in Sources */,
+				BA1677D51E077ECD00E7F9BE /* mztools.h in Sources */,
+				BA1677D61E077ECD00E7F9BE /* unzip.c in Sources */,
+				BA1677D71E077ECD00E7F9BE /* unzip.h in Sources */,
+				BA1677D81E077ECD00E7F9BE /* zip.c in Sources */,
+				BA1677D91E077ECD00E7F9BE /* zip.h in Sources */,
+				BA1677DA1E077ECD00E7F9BE /* SSZipArchive.h in Sources */,
+				BA1677DB1E077ECD00E7F9BE /* SSZipArchive.m in Sources */,
+				BA1677DC1E077ECD00E7F9BE /* ZipArchive.h in Sources */,
+				BA1677401E07741500E7F9BE /* RCTUpdateManager.m in Sources */,
+				BA1677411E07741500E7F9BE /* UpdateDownloadHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BA1677351E0773EC00E7F9BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BA1677361E0773EC00E7F9BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BA1677381E0773EC00E7F9BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = VDR646MMJD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		BA1677391E0773EC00E7F9BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = VDR646MMJD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BA1677291E0773EC00E7F9BE /* Build configuration list for PBXProject "ReactNativeCodeUpdate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA1677351E0773EC00E7F9BE /* Debug */,
+				BA1677361E0773EC00E7F9BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA1677371E0773EC00E7F9BE /* Build configuration list for PBXNativeTarget "ReactNativeCodeUpdate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA1677381E0773EC00E7F9BE /* Debug */,
+				BA1677391E0773EC00E7F9BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BA1677261E0773EC00E7F9BE /* Project object */;
+}
