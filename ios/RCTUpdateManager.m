@@ -171,7 +171,7 @@ static NSString *bundleResourceFileName = @"main.jsbundle";
 	NSInteger versionCode =  [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] intValue];
 	NSInteger jsVersionCode = (NSInteger)[preferences integerForKey:JS_BUNDLE_VERSION_CODE];
 	//	NSString *temp = @"开始checkupdate 拉啊啦拉";
-	NSString * const UPDATE_HOST = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"code.update_url"];
+	NSString * const UPDATE_HOST = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"code.update.url"];
 	NSString * const APP_ID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"code.update.app_id"];
 	NSString *urlString = [NSString stringWithFormat:@"%@/app/checkUpdate?platform=ios&app_id=%@&app_version_code=%ld&js_version_code=%ld",UPDATE_HOST,APP_ID,versionCode,jsVersionCode];
 	NSLog(@"开始checkupdate 拉啊啦拉,urlString:%@",urlString);
