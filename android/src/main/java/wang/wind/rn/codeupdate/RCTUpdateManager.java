@@ -3,6 +3,7 @@ package wang.wind.rn.codeupdate;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -98,6 +99,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             sIsAtLeastGB = true;
         }
     }
+
     /**
      * 读取application 节点  meta-data 信息
      */
@@ -113,7 +115,8 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             return null;
         }
     }
-    public static void init(String appName,String appId,String checkHost,Application application,AsyncHttpClient client){
+
+    public static void init(String appName, String appId, String checkHost, Application application, AsyncHttpClient client) {
         APPID = appId;
         APPNAME = appName;
         CHECK_HOST = checkHost;
@@ -124,6 +127,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         mClient = client;
 
     }
+
     public RCTUpdateManager(ReactApplicationContext reactContext) {
         super(reactContext);
         mContext = reactContext.getApplicationContext();
@@ -213,7 +217,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                         case 0:
                             //下载失败
                             progressDialog.hide();
-                            if(callback != null){
+                            if (callback != null) {
                                 callback.invoke();
                                 callback = null;
                             }
@@ -228,8 +232,15 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
 //                    mNotificationManager.notify(NOTIFY_ID, mNotification);
                             break;
                         case 2:
-                            //js下载完毕
-                            // 取消通知
+                            if (callback != null) {
+                                callback.invoke("true");
+                                callback = null;
+                            }
+                            break;
+                        //js下载完毕
+                        // 取消通知
+                        case 3:
+                            restartReact(getReactApplicationContext());
 //                    mNotificationManager.cancel(NOTIFY_ID);
                             break;
 
@@ -261,9 +272,9 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
 
             int updatedAppVersionCode = getUpdatedAppVersionCode(mContext);
             if (updatedAppVersionCode != versionCode) {
-                setJsBundlePath(null,mContext);
-                setJsBundleVersionCode(0,mContext);
-                setUpdatedAppVersionCode(versionCode,mContext);
+                setJsBundlePath(null, mContext);
+                setJsBundleVersionCode(0, mContext);
+                setUpdatedAppVersionCode(versionCode, mContext);
             }
             context.getSystemService(Context.DOWNLOAD_SERVICE);
             AsyncHttpResponseHandler mCheckUpdateHandle = new AsyncHttpResponseHandler() {
@@ -295,7 +306,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             checkUpdate(pInfo, mCheckUpdateHandle);
         } else {
 //            MainApplication.showToast(R.string.tip_network_error);
-            AlertDialog.Builder dialog = DialogHelp.getMessageDialog(getCurrentActivity(),mContext.getString(R.string.tip_network_error) );
+            AlertDialog.Builder dialog = DialogHelp.getMessageDialog(getCurrentActivity(), mContext.getString(R.string.tip_network_error));
 //            dialog.setTitle();
             dialog.show();
 
@@ -306,7 +317,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
     @ReactMethod
     public void doUpdate(ReadableMap options, final Callback cb) {
         update = new VersionUpdate(options);
-        if(update.getUpdateType() == 1){
+        if (update.getUpdateType() == 1) {
             AlertDialog.Builder dialog;
             String changeLog = update.getChangeLog();
             System.out.println(changeLog);
@@ -316,15 +327,15 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                 public void onClick(DialogInterface dialogInterface, int i) {
 //                            System.out.println("1231232131");
                     callback = cb;
-                    System.out.println("====="+update.getSuccess()+","+update.getUpdateType());
+//                    System.out.println("====="+update.getSuccess()+","+update.getUpdateType());
                     startUpdate();
                 }
             });
             dialog.setTitle("发现新版本是否下载?");
             dialog.show();
-        }else {
+        } else {
             callback = cb;
-            System.out.println("====="+update.getSuccess()+","+update.getUpdateType());
+            System.out.println("=====" + update.getSuccess() + "," + update.getUpdateType());
             startUpdate();
         }
 
@@ -334,7 +345,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
     private void checkUpdate(PackageInfo packageInfo, AsyncHttpResponseHandler mCheckUpdateHandle) {
         int bundleVersionCode = getJsBundleVersionCode(mContext);
         Log.d(TAG, "checkUpdate");
-        mClient.get(CHECK_HOST+"/app/checkUpdate?platform=android&app_id="+APPID +
+        mClient.get(CHECK_HOST + "/app/checkUpdate?platform=android&app_id=" + APPID +
                 "&app_version_code=" + packageInfo.versionCode +
                 "&js_version_code=" + bundleVersionCode, mCheckUpdateHandle);
     }
@@ -377,7 +388,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                 if ((downloadCount == 0)
                         || (int) (totalSize * 100 / updateTotalSize) - 5 >= downloadCount) {
                     downloadCount += 5;
-                    System.out.println(downloadCount+","+update.getUpdateType());
+                    System.out.println(downloadCount + "," + update.getUpdateType());
                     if (update.getUpdateType() == 1 || update.getUpdateType() == 2) {
                         // 更新进度
                         Message msg = mHandler.obtainMessage();
@@ -392,7 +403,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                 is.close();
                 fos.close();
                 saveFile.delete();
-                if(callback != null){
+                if (callback != null) {
                     callback.invoke();
                     callback = null;
                 }
@@ -401,25 +412,21 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             if (downLoadThread != null && !downLoadThread.isInterrupted()) {
                 downLoadThread.interrupt();
             }
-            if(callback != null){
-                callback.invoke("true");
-                callback = null;
-            }
 
             if (update.getUpdateType() == 2) {
                 if (saveFile.getAbsolutePath().endsWith(".zip")) {
                     ZipUtils.unZipFile(saveFile.getAbsolutePath(), JS_BUNDLE_LOCAL_PATH);
                 }
-                setJsBundlePath(JS_BUNDLE_LOCAL_PATH + File.separator + JS_BUNDLE_LOCAL_FILE,mContext);
-                setJsBundleVersionCode(update.getJsBundleVersionCode(),mContext);
-                setUpdatedAppVersionCode(pInfo.versionCode,mContext);
+                setJsBundlePath(JS_BUNDLE_LOCAL_PATH + File.separator + JS_BUNDLE_LOCAL_FILE, mContext);
+                setJsBundleVersionCode(update.getJsBundleVersionCode(), mContext);
+                setUpdatedAppVersionCode(pInfo.versionCode, mContext);
                 mHandler.sendEmptyMessage(2);
             } else {
                 File apkfile = saveFile;
                 if (apkfile.exists()) {
-                    setJsBundlePath(null,mContext);
-                    setUpdatedAppVersionCode(0,mContext);
-                    setJsBundleVersionCode(0,mContext);
+                    setJsBundlePath(null, mContext);
+                    setUpdatedAppVersionCode(0, mContext);
+                    setJsBundleVersionCode(0, mContext);
                     installAPK(getReactApplicationContext(), apkfile);
                 }
 
@@ -443,7 +450,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         final AlertDialog.Builder dialog = DialogHelp.getConfirmDialog(getCurrentActivity(), "自动更新已经完成是否重新启动应用?", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                restartReact(getReactApplicationContext());
+                mHandler.sendEmptyMessage(3);
             }
         });
         dialog.setTitle("自动更新完成");
@@ -451,20 +458,21 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
     }
 
 
-
-    private void restartReact(ReactContext context){
-        if(context == null){
+    private void restartReact(ReactContext context) {
+        if (context == null) {
             restart(context);
             return;
         }
         loadBundle(context.getCurrentActivity());
     }
-    public static void restart(Context context){
+
+    public static void restart(Context context) {
         Intent i = context.getPackageManager()
                 .getLaunchIntentForPackage(context.getPackageName());
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(i);
     }
+
     // Use reflection to find and set the appropriate fields on ReactInstanceManager. See #556 for a proposal for a less brittle way
     // to approach this.
     private void setJSBundle(ReactInstanceManager instanceManager, String latestJSBundleFile) throws NoSuchFieldException, IllegalAccessException {
@@ -517,7 +525,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         });
     }
 
-    private void loadBundle(final Activity currentActivity ) {
+    private void loadBundle(final Activity currentActivity) {
 
         if (currentActivity == null) {
             // The currentActivity can be null if it is backgrounded / destroyed, so we simply
@@ -530,7 +538,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             loadBundleLegacy(currentActivity);
         } else {
             try {
-                ReactActivity reactActivity = (ReactActivity)currentActivity;
+                ReactActivity reactActivity = (ReactActivity) currentActivity;
                 ReactInstanceManager instanceManager;
 
                 // #1) Get the ReactInstanceManager instance, which is what includes the
@@ -545,20 +553,20 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                     Object reactNativeHost = getReactNativeHostMethod.invoke(reactApplication);
                     Class<?> reactNativeHostClass = tryGetClass(REACT_NATIVE_HOST_CLASS_NAME);
                     Method getReactInstanceManagerMethod = reactNativeHostClass.getMethod("getReactInstanceManager");
-                    instanceManager = (ReactInstanceManager)getReactInstanceManagerMethod.invoke(reactNativeHost);
+                    instanceManager = (ReactInstanceManager) getReactInstanceManagerMethod.invoke(reactNativeHost);
                 } catch (Exception e) {
                     // The React Native version might be older than 0.29, so we try to get the
                     // instance manager via the "mReactInstanceManager" field.
                     Field instanceManagerField = ReactActivity.class.getDeclaredField("mReactInstanceManager");
                     instanceManagerField.setAccessible(true);
-                    instanceManager = (ReactInstanceManager)instanceManagerField.get(reactActivity);
+                    instanceManager = (ReactInstanceManager) instanceManagerField.get(reactActivity);
                 }
 
                 // #3) Get the context creation method and fire it on the UI thread (which RN enforces)
                 final Method recreateMethod = instanceManager.getClass().getMethod("recreateReactContextInBackground");
 
                 final ReactInstanceManager finalizedInstanceManager = instanceManager;
-                if(getJsBundlePath(mContext) != null){
+                if (getJsBundlePath(mContext) != null) {
                     setJSBundle(finalizedInstanceManager, getJsBundlePath(mContext));
 
                 }
@@ -568,8 +576,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                     public void run() {
                         try {
                             recreateMethod.invoke(finalizedInstanceManager);
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             // The recreation method threw an unknown exception
                             // so just simply fallback to restarting the Activity
                             loadBundleLegacy(currentActivity);
@@ -591,6 +598,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             return null;
         }
     }
+
     private boolean hasInternet() {
         boolean flag;
         if (((ConnectivityManager) getReactApplicationContext().getSystemService(
@@ -618,12 +626,13 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                 Context.MODE_MULTI_PROCESS);
         return pre;
     }
+
     public static String getJsBundlePath(Context context) {
         return getPreferences(context).getString(
                 JS_BUNDLE_PATH, null);
     }
 
-    public static void setJsBundlePath(String bundlePath,Context context) {
+    public static void setJsBundlePath(String bundlePath, Context context) {
         Log.d(TAG, "====================setJsBundlePath:" + bundlePath);
         if (bundlePath == null) {
             Log.d(TAG, "====================delete old file begin");
@@ -641,7 +650,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             }
             Log.d(TAG, "====================delete old file end");
         }
-        set(JS_BUNDLE_PATH, bundlePath,context);
+        set(JS_BUNDLE_PATH, bundlePath, context);
     }
 
 
@@ -650,7 +659,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                 JS_BUNDLE_VERSION_CODE, 0);
     }
 
-    public static void setJsBundleVersionCode(int bundleVersionCode,Context context) {
+    public static void setJsBundleVersionCode(int bundleVersionCode, Context context) {
         set(
                 JS_BUNDLE_VERSION_CODE, bundleVersionCode, context);
     }
@@ -660,10 +669,11 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                 UPDATED_APP_VERSION_CODE, 0);
     }
 
-    public static void setUpdatedAppVersionCode(int updatedAppVersionCode,Context context) {
+    public static void setUpdatedAppVersionCode(int updatedAppVersionCode, Context context) {
         set(
-                UPDATED_APP_VERSION_CODE, updatedAppVersionCode,context);
+                UPDATED_APP_VERSION_CODE, updatedAppVersionCode, context);
     }
+
     /**
      * 获取App安装包信息
      *
@@ -690,19 +700,19 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         }
     }
 
-    public static void set(String key, int value,Context context) {
+    public static void set(String key, int value, Context context) {
         SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.putInt(key, value);
         apply(editor);
     }
 
-    public static void set(String key, boolean value,Context context) {
+    public static void set(String key, boolean value, Context context) {
         SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.putBoolean(key, value);
         apply(editor);
     }
 
-    public static void set(String key, String value,Context context) {
+    public static void set(String key, String value, Context context) {
         SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.putString(key, value);
         apply(editor);
@@ -712,7 +722,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         if (dir.isDirectory()) {
             String[] children = dir.list();
             //递归删除目录中的子目录下
-            for (int i=0; i<children.length; i++) {
+            for (int i = 0; i < children.length; i++) {
                 boolean success = deleteDir(new File(dir, children[i]));
                 if (!success) {
                     return false;
