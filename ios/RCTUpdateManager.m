@@ -189,9 +189,8 @@ static NSString *bundleResourceFileName = @"main.jsbundle";
 		return nil;
 	}
 	NSLog(@"%@",jsonObject);
-	NSLog(@"%d",(int)[jsonObject integerForKey:@"success"]);
 	
-	NSLog(@"%@",[self getBundleSavedPath]);
+//	NSLog(@"%@",[self getBundleSavedPath]);
 	return jsonObject;
 	//	return temp;
 }
@@ -199,11 +198,11 @@ static NSString *bundleResourceFileName = @"main.jsbundle";
 {
 
 }
-+(void )doUpdate:(id)jsonObject doneCallBack:(RCTResponseSenderBlock) doneCallBack
++(void )doUpdate:(NSDictionary *)jsonObject doneCallBack:(RCTResponseSenderBlock) doneCallBack
 {
 	NSError *error = nil;
-	if((int)[jsonObject integerForKey:@"success"]){
-		if([jsonObject integerForKey:@"updateType"] == 2){
+	if([[jsonObject objectForKey:@"success"] intValue]){
+		if([[jsonObject objectForKey:@"updateType"] intValue] == 2){
 			NSLog(@"开始下载");
 			NSFileManager *fileManager = [NSFileManager defaultManager];
 			
@@ -251,7 +250,7 @@ static NSString *bundleResourceFileName = @"main.jsbundle";
 															 
 															 NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 																[preferences setObject:bundleResourceFileName forKey:JS_BUNDLE_PATH];
-																[preferences setInteger:[jsonObject integerForKey:@"jsBundleVersionCode"] forKey:JS_BUNDLE_VERSION_CODE];
+																[preferences setInteger:[[jsonObject objectForKey:@"jsBundleVersionCode"] intValue]forKey:JS_BUNDLE_VERSION_CODE];
 															 
 															 
 															 NSString *filePathTemp = [self getBundleSavedPath];
