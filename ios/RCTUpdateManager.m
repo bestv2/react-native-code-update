@@ -25,7 +25,8 @@ RCT_EXPORT_MODULE();
 // that is associated with an update's package.
 static bool isFirstAccess = YES;
 static RCTUpdateManager *RNAUTOUPDATER_SINGLETON = nil;
-
+// These constants represent emitted events
+static NSString *const DownloadProgressEvent = @"CodePushDownloadProgress";
 + (id)sharedInstance
 {
     static dispatch_once_t onceToken;
@@ -36,6 +37,9 @@ static RCTUpdateManager *RNAUTOUPDATER_SINGLETON = nil;
     });
 
     return RNAUTOUPDATER_SINGLETON;
+}
+- (NSArray<NSString *> *)supportedEvents {
+    return @[DownloadProgressEvent];
 }
 
 #pragma mark - Life Cycle
@@ -123,7 +127,7 @@ static NSString *bundleResourceFileName = @"main.jsbundle";
 	//	NSString *versionName =  [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 	NSInteger versionCode =  [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] intValue];
 	NSInteger updatedAppVersionCode = [preferences integerForKey:UPDATED_APP_VERSION_CODE];
-	NSLog(@"versionCode:%ld,updatedAppVersionCode:%ld",versionCode,updatedAppVersionCode);
+	NSLog(@"versionCode:%ld,updatedAppVersionCode:%ld,jsVersionCode:%ld",versionCode,updatedAppVersionCode,[preferences integerForKey:JS_BUNDLE_VERSION_CODE]);
 	NSLog(@"JS_BUNDLE_PATH:%@",[preferences stringForKey:JS_BUNDLE_PATH]);
 	if(updatedAppVersionCode != versionCode){
 		[preferences setInteger:versionCode forKey:UPDATED_APP_VERSION_CODE];
@@ -133,6 +137,7 @@ static NSString *bundleResourceFileName = @"main.jsbundle";
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 		[fileManager removeItemAtPath:[self getBundleSavedPath] error:nil];
 	}
+	NSLog(@"2versionCode:%ld,updatedAppVersionCode:%ld,jsVersionCode:%ld",versionCode,updatedAppVersionCode,[preferences integerForKey:JS_BUNDLE_VERSION_CODE]);
  NSString *packageFile = [preferences objectForKey:JS_BUNDLE_PATH];
 	
  
@@ -244,7 +249,7 @@ static NSString *bundleResourceFileName = @"main.jsbundle";
 												 }
 														 doneCallback:^(BOOL success){
 															 [fileManager removeItemAtPath:[self getBundleSavedPath] error:nil];
-															 NSLog(@"回调结束啦");
+//															 NSLog(@"回调结束啦");
 															 
 															 [SSZipArchive unzipFileAtPath:savedFilePath toDestination:[self getBundleSavedPath] delegate:self];
 															 
@@ -334,15 +339,12 @@ RCT_EXPORT_METHOD(doUpdate:(id)jsonObject callback:(RCTResponseSenderBlock)callb
 	NSLog(@"%@",jsonObject);
 	NSLog(@"doUpdate");
 	[RCTUpdateManager doUpdate:jsonObject doneCallBack:callback];
-//	[(AppDelegate*)[[UIApplication sharedApplication] delegate] ReactNativeAutoUpdater_updateDownloadedToURL];
-
 }
 RCT_EXPORT_METHOD(askForReload)
 {
-NSLog(@"askForReload,%@",self.delegate);
-	if ([self.delegate respondsToSelector:@selector(ReactNativeAutoUpdater_updateDownloadedToURL)]) {
-	NSLog(@"askForReload2");
-
-	[self.delegate ReactNativeAutoUpdater_updateDownloadedToURL];
-    }}
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[super.bridge setValue:[RCTUpdateManager bundleURL] forKey:@"bundleURL"];
+		[super.bridge reload];
+	});
+}
 @end

@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "RCTBridgeModule.h"
+#import "RCTEventEmitter.h"
+#import "RCTFrameUpdate.h"
 @protocol ReactNativeCodeUpdateDelegate <NSObject>
 
 - (void)ReactNativeAutoUpdater_updateDownloadedToURL;
 @end
-@interface RCTUpdateManager : NSObject <RCTBridgeModule>
-@property id<ReactNativeCodeUpdateDelegate> delegate;
+@interface RCTUpdateManager : RCTEventEmitter <RCTBridgeModule>
+//@property id<ReactNativeCodeUpdateDelegate> delegate;
 + (id)sharedInstance;
 + (NSURL *)binaryBundleURL;
 /*
