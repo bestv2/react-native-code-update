@@ -51,7 +51,9 @@ code.update.url（string） http://xxxxx
 
 ##js
 ```js
-  UpdateManager.checkUpdate(function (jsonObject) {
+  import ReactNative,{NativeModules} from 'react-native'
+  var UpdateManager = NativeModules.UpdateManager;
+  UpdateManager.checkUpdate(function (jsonObject) {
             if (jsonObject && jsonObject.updateType) {
                 UpdateManager.doUpdate(jsonObject, function (success) {
                     if (success == "true") {
