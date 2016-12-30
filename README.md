@@ -17,10 +17,8 @@ code.update.app_id（string） yourAppId
 code.update.url（string） http://xxxxx
 ```Object-c
 		jsCodeLocation = [RCTUpdateManager bundleURL];
-		RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-																												moduleName:@"XXX"
-																								 initialProperties:nil
-																										 launchOptions:launchOptions];
+		RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation														moduleName:@"XXX"													initialProperties:nil
+										launchOptions:launchOptions];
 ```
 
 ##android
