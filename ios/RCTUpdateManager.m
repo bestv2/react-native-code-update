@@ -7,7 +7,6 @@
 //
 
 #import "RCTUpdateManager.h"
-#import "RCTUpdateManager.h"
 #import <UIKit/UIKit.h>
 #import "UpdateDownloadHandler.h"
 #import "SSZipArchive/SSZipArchive.h"
