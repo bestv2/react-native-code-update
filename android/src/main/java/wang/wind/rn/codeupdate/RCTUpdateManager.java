@@ -201,7 +201,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
 //            progressDialog = new YProgressDialog(mContext,"下载中...");
                 progressDialog = DialogHelp.getProgressDialog(getCurrentActivity(), "下载中...");
                 CharSequence title = "取消下载";
-                progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, title, new CancelDownloadListener());
+//                progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, title, new CancelDownloadListener());
 
             }
             progressDialog.show();
@@ -322,7 +322,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             String changeLog = update.getChangeLog();
             System.out.println(changeLog);
             String toastMessage = (update.getChangeLog() == null ? "" : (changeLog));
-            dialog = DialogHelp.getConfirmDialog(getCurrentActivity(), toastMessage, new DialogInterface.OnClickListener() {
+            dialog = DialogHelp.getMessageDialog(getCurrentActivity(), toastMessage, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 //                            System.out.println("1231232131");
@@ -331,7 +331,8 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                     startUpdate();
                 }
             });
-            dialog.setTitle("发现新版本是否下载?");
+            dialog.setTitle("发现新版本");
+            dialog.setMessage("马上会为您下载并安装。");
             dialog.show();
         } else {
             callback = cb;
@@ -447,14 +448,15 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void askForReload() {
-        final AlertDialog.Builder dialog = DialogHelp.getConfirmDialog(getCurrentActivity(), "自动更新已经完成是否重新启动应用?", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                mHandler.sendEmptyMessage(3);
-            }
-        });
-        dialog.setTitle("自动更新完成");
-        dialog.show();
+        mHandler.sendEmptyMessage(3);
+//        final AlertDialog.Builder dialog = DialogHelp.getConfirmDialog(getCurrentActivity(), "自动更新已经完成是否重新启动应用?", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                mHandler.sendEmptyMessage(3);
+//            }
+//        });
+//        dialog.setTitle("自动更新完成");
+//        dialog.show();
     }
 
 
