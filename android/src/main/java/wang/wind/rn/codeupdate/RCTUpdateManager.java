@@ -331,6 +331,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                     startUpdate();
                 }
             });
+            dialog.setCancelable(false);
             dialog.setTitle("发现新版本");
             dialog.setMessage("马上会为您下载并安装。");
             dialog.show();
