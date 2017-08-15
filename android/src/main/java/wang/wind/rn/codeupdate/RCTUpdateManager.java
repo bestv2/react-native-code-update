@@ -624,6 +624,17 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
     }
 
     public static String getJsBundlePath(Context context) {
+        PackageInfo pInfo = getPackageInfo(context);
+        String version = pInfo.versionName;
+        int versionCode = pInfo.versionCode;
+
+        int updatedAppVersionCode = getUpdatedAppVersionCode(context);
+        if (updatedAppVersionCode != versionCode) {
+            setJsBundlePath(null, context);
+            setJsBundleVersionCode(0, context);
+            setUpdatedAppVersionCode(versionCode, context);
+            return null;
+        }
         return getPreferences(context).getString(
                 JS_BUNDLE_PATH, null);
     }

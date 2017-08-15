@@ -16,5 +16,8 @@
     "update"
   ],
   "author": "bestv2",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "user": "0.0.0"
+  }
 }
