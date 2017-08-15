@@ -18,14 +18,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactRootView;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.JSBundleLoader;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -45,6 +50,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
@@ -331,7 +337,6 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                     startUpdate();
                 }
             });
-            dialog.setCancelable(false);
             dialog.setTitle("发现新版本");
             dialog.setMessage("马上会为您下载并安装。");
             dialog.show();
@@ -466,7 +471,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             restart(context);
             return;
         }
-        loadBundle(context.getCurrentActivity());
+        loadBundle();
     }
 
     public static void restart(Context context) {
@@ -476,50 +481,14 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         context.startActivity(i);
     }
 
-    // Use reflection to find and set the appropriate fields on ReactInstanceManager. See #556 for a proposal for a less brittle way
-    // to approach this.
-    private void setJSBundle(ReactInstanceManager instanceManager, String latestJSBundleFile) throws NoSuchFieldException, IllegalAccessException {
-        try {
-            Field bundleLoaderField = instanceManager.getClass().getDeclaredField("mBundleLoader");
-            Class<?> jsBundleLoaderClass = Class.forName("com.facebook.react.cxxbridge.JSBundleLoader");
-            Method createFileLoaderMethod = null;
 
-            Method[] methods = jsBundleLoaderClass.getDeclaredMethods();
-            for (Method method : methods) {
-                if (method.getName() == "createFileLoader") {
-                    createFileLoaderMethod = method;
-                    break;
-                }
-            }
-
-            if (createFileLoaderMethod == null) {
-                throw new NoSuchMethodException("Could not find a recognized 'createFileLoader' method");
-            }
-
-            int numParameters = createFileLoaderMethod.getGenericParameterTypes().length;
-            Object latestJSBundleLoader;
-
-            if (numParameters == 1) {
-                // RN >= v0.34
-                latestJSBundleLoader = createFileLoaderMethod.invoke(jsBundleLoaderClass, latestJSBundleFile);
-            } else if (numParameters == 2) {
-                // RN >= v0.31 && RN < v0.34
-                latestJSBundleLoader = createFileLoaderMethod.invoke(jsBundleLoaderClass, getReactApplicationContext(), latestJSBundleFile);
-            } else {
-                throw new NoSuchMethodException("Could not find a recognized 'createFileLoader' method");
-            }
-
-            bundleLoaderField.setAccessible(true);
-            bundleLoaderField.set(instanceManager, latestJSBundleLoader);
-        } catch (Exception e) {
-            // RN < v0.31
-            Field jsBundleField = instanceManager.getClass().getDeclaredField("mJSBundleFile");
-            jsBundleField.setAccessible(true);
-            jsBundleField.set(instanceManager, latestJSBundleFile);
+    private void loadBundleLegacy() {
+        final Activity currentActivity = getCurrentActivity();
+        if (currentActivity == null) {
+            // The currentActivity can be null if it is backgrounded / destroyed, so we simply
+            // no-op to prevent any null pointer exceptions.
+            return;
         }
-    }
-
-    private void loadBundleLegacy(final Activity currentActivity) {
         currentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -528,72 +497,96 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         });
     }
 
-    private void loadBundle(final Activity currentActivity) {
-
-        if (currentActivity == null) {
-            // The currentActivity can be null if it is backgrounded / destroyed, so we simply
-            // no-op to prevent any null pointer exceptions.
-            return;
-        } else if (!ReactActivity.class.isInstance(currentActivity)) {
-            // Our preferred reload logic relies on the user's Activity inheriting
-            // from the core ReactActivity class, so if it doesn't, we fallback
-            // early to our legacy behavior.
-            loadBundleLegacy(currentActivity);
-        } else {
-            try {
-                ReactActivity reactActivity = (ReactActivity) currentActivity;
-                ReactInstanceManager instanceManager;
-
-                // #1) Get the ReactInstanceManager instance, which is what includes the
-                //     logic to reload the current React context.
-                try {
-                    // In RN 0.29, the "mReactInstanceManager" field yields a null value, so we try
-                    // to get the instance manager via the ReactNativeHost, which only exists in 0.29.
-                    Method getApplicationMethod = ReactActivity.class.getMethod("getApplication");
-                    Object reactApplication = getApplicationMethod.invoke(reactActivity);
-                    Class<?> reactApplicationClass = tryGetClass(REACT_APPLICATION_CLASS_NAME);
-                    Method getReactNativeHostMethod = reactApplicationClass.getMethod("getReactNativeHost");
-                    Object reactNativeHost = getReactNativeHostMethod.invoke(reactApplication);
-                    Class<?> reactNativeHostClass = tryGetClass(REACT_NATIVE_HOST_CLASS_NAME);
-                    Method getReactInstanceManagerMethod = reactNativeHostClass.getMethod("getReactInstanceManager");
-                    instanceManager = (ReactInstanceManager) getReactInstanceManagerMethod.invoke(reactNativeHost);
-                } catch (Exception e) {
-                    // The React Native version might be older than 0.29, so we try to get the
-                    // instance manager via the "mReactInstanceManager" field.
-                    Field instanceManagerField = ReactActivity.class.getDeclaredField("mReactInstanceManager");
-                    instanceManagerField.setAccessible(true);
-                    instanceManager = (ReactInstanceManager) instanceManagerField.get(reactActivity);
-                }
-
-                // #3) Get the context creation method and fire it on the UI thread (which RN enforces)
-                final Method recreateMethod = instanceManager.getClass().getMethod("recreateReactContextInBackground");
-
-                final ReactInstanceManager finalizedInstanceManager = instanceManager;
-                if (getJsBundlePath(mContext) != null) {
-                    setJSBundle(finalizedInstanceManager, getJsBundlePath(mContext));
-
-                }
-
-                reactActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            recreateMethod.invoke(finalizedInstanceManager);
-                        } catch (Exception e) {
-                            // The recreation method threw an unknown exception
-                            // so just simply fallback to restarting the Activity
-                            loadBundleLegacy(currentActivity);
-                        }
-                    }
-                });
-            } catch (Exception e) {
-                // Our reflection logic failed somewhere
-                // so fall back to restarting the Activity
-                loadBundleLegacy(currentActivity);
+    // Use reflection to find and set the appropriate fields on ReactInstanceManager. See #556 for a proposal for a less brittle way
+    // to approach this.
+    private void setJSBundle(ReactInstanceManager instanceManager, String latestJSBundleFile) throws IllegalAccessException {
+        try {
+            JSBundleLoader latestJSBundleLoader;
+            if (latestJSBundleFile.toLowerCase().startsWith("assets://")) {
+                latestJSBundleLoader = JSBundleLoader.createAssetLoader(getReactApplicationContext(), latestJSBundleFile, false);
+            } else {
+                latestJSBundleLoader = JSBundleLoader.createFileLoader(latestJSBundleFile);
             }
+
+            Field bundleLoaderField = instanceManager.getClass().getDeclaredField("mBundleLoader");
+            bundleLoaderField.setAccessible(true);
+            bundleLoaderField.set(instanceManager, latestJSBundleLoader);
+        } catch (Exception e) {
+            throw new IllegalAccessException("Could not setJSBundle");
         }
     }
 
+    private void loadBundle() {
+        try {
+            // #1) Get the ReactInstanceManager instance, which is what includes the
+            //     logic to reload the current React context.
+            final ReactInstanceManager instanceManager = resolveInstanceManager();
+            if (instanceManager == null) {
+                return;
+            }
+
+            String latestJSBundleFile = getJsBundlePath(getReactApplicationContext());
+
+            // #2) Update the locally stored JS bundle file path
+            setJSBundle(instanceManager, latestJSBundleFile);
+
+            // #3) Get the context creation method and fire it on the UI thread (which RN enforces)
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        // We don't need to resetReactRootViews anymore
+                        // due the issue https://github.com/facebook/react-native/issues/14533
+                        // has been fixed in RN 0.46.0
+                        //resetReactRootViews(instanceManager);
+
+                        instanceManager.recreateReactContextInBackground();
+                    } catch (Exception e) {
+                        // The recreation method threw an unknown exception
+                        // so just simply fallback to restarting the Activity (if it exists)
+                        loadBundleLegacy();
+                    }
+                }
+            });
+
+        } catch (Exception e) {
+            // Our reflection logic failed somewhere
+            // so fall back to restarting the Activity (if it exists)
+            loadBundleLegacy();
+        }
+    }
+    // Use reflection to find the ReactInstanceManager. See #556 for a proposal for a less brittle way to approach this.
+    private ReactInstanceManager resolveInstanceManager() throws NoSuchFieldException, IllegalAccessException {
+        ReactInstanceManager instanceManager = RCTUpdatePackage.getReactInstanceManager();
+        if (instanceManager != null) {
+            return instanceManager;
+        }
+
+        final Activity currentActivity = getCurrentActivity();
+        if (currentActivity == null) {
+            return null;
+        }
+
+        ReactApplication reactApplication = (ReactApplication) currentActivity.getApplication();
+        instanceManager = reactApplication.getReactNativeHost().getReactInstanceManager();
+        RCTUpdatePackage.setReactInstanceManager(instanceManager);
+
+
+        return instanceManager;
+    }
+    // This workaround has been implemented in order to fix https://github.com/facebook/react-native/issues/14533
+    // resetReactRootViews allows to call recreateReactContextInBackground without any exceptions
+    // This fix also relates to https://github.com/Microsoft/react-native-code-push/issues/878
+    private void resetReactRootViews(ReactInstanceManager instanceManager) throws NoSuchFieldException, IllegalAccessException {
+        Field mAttachedRootViewsField = instanceManager.getClass().getDeclaredField("mAttachedRootViews");
+        mAttachedRootViewsField.setAccessible(true);
+        List<ReactRootView> mAttachedRootViews = (List<ReactRootView>)mAttachedRootViewsField.get(instanceManager);
+        for (ReactRootView reactRootView : mAttachedRootViews) {
+            reactRootView.removeAllViews();
+            reactRootView.setId(View.NO_ID);
+        }
+        mAttachedRootViewsField.set(instanceManager, mAttachedRootViews);
+    }
     private Class tryGetClass(String className) {
         try {
             return Class.forName(className);

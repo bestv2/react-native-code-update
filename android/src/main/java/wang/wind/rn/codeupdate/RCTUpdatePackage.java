@@ -1,5 +1,6 @@
 package wang.wind.rn.codeupdate;
 
+import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class RCTUpdatePackage implements ReactPackage {
 
+    private static ReactInstanceManager mReactInstanceManager;
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
@@ -33,6 +35,12 @@ public class RCTUpdatePackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Collections.emptyList();
+    }
+    public static void setReactInstanceManager(ReactInstanceManager reactInstanceManager) {
+        mReactInstanceManager = reactInstanceManager;
+    }
+    static ReactInstanceManager getReactInstanceManager() {
+        return mReactInstanceManager;
     }
 
 }

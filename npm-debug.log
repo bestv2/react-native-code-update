@@ -1,0 +1,98 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@3.10.9
+3 info using node@v6.5.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/wangduo/workspace/react-native-npms/react-native-code-update',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/wangduo/.npm/react-native-code-update/0.2.3/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/wangduo/.npm correctMkdir not in flight; initializing
+10 info lifecycle react-native-code-update@0.2.3~prepublish: react-native-code-update@0.2.3
+11 silly lifecycle react-native-code-update@0.2.3~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/wangduo/.npm/react-native-code-update/0.2.3/package.tgz',
+12 verbose tar pack   '/Users/wangduo/workspace/react-native-npms/react-native-code-update' ]
+13 verbose tarball /Users/wangduo/.npm/react-native-code-update/0.2.3/package.tgz
+14 verbose folder /Users/wangduo/workspace/react-native-npms/react-native-code-update
+15 verbose addLocalTarball adding from inside cache /Users/wangduo/.npm/react-native-code-update/0.2.3/package.tgz
+16 verbose correctMkdir /Users/wangduo/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd react-native-code-update@0.2.3
+18 verbose afterAdd /Users/wangduo/.npm/react-native-code-update/0.2.3/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/wangduo/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/wangduo/.npm/react-native-code-update/0.2.3/package/package.json written
+21 silly publish { name: 'react-native-code-update',
+21 silly publish   version: '0.2.3',
+21 silly publish   description: 'react native code update',
+21 silly publish   main: 'index.js',
+21 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+21 silly publish   repository:
+21 silly publish    { type: 'git',
+21 silly publish      url: 'git+https://github.com/bestv2/react-native-code-update.git' },
+21 silly publish   keywords: [ 'react', 'native', 'update' ],
+21 silly publish   author: { name: 'bestv2' },
+21 silly publish   license: 'MIT',
+21 silly publish   readme: '# react-native-code-update\n\n##更新请求地址为： \n{code.update.url}/app/checkUpdate?platform=ios&app_id={yourAppId}&app_version_code={currentAppVersionCode}&js_version_code={currentJSVersionCode}  \n返回内容：res\n{\n    success: 1;\n    updateType: 0;\n} success:标示请求成功，   \nupdateType: \n0表示没有更新，  \n1表示为android平台时检测到新的apk安装包, res.versionName版本名称，res.versionCode:版本好，res.downloadUrl 下载连接，res.changeLog 更新日志   \n2表示有js包更新，res.jsBundleVersion js版本名称, res.jsBundleVersionCode js版本号，res.downloadUrl,res.changeLog\n##ios:\ninfo.plist中增加：\ncode.update.app_id（string） yourAppId\ncode.update.url（string） http://xxxxx\n```Object-c\n\t\tjsCodeLocation = [RCTUpdateManager bundleURL];\n\t\tRCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation\t\t\t\t\t\t\t\t\t\t\t\t\t\tmoduleName:@"XXX"\t\t\t\t\t\t\t\t\t\t\t\t\tinitialProperties:nil\n\t\t\t\t\t\t\t\t\t\tlaunchOptions:launchOptions];\n```\n\n##android\n在Application.java\n```java\n    @Override\n    public void onCreate() {\n        super.onCreate();\n        ...\n        ...\n        AsyncHttpClient client = new AsyncHttpClient();//http请求用\n        RCTUpdateManager.init("{yourAppName(会在存储中创建目录保存更新文件)}","appId","更新url（参考ios配置）",this,client);\n    }\n    \n    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {\n        ...\n        ...\n        @Override\n        protected List<ReactPackage> getPackages() {\n            //mAliPushPackage = new AliPushPackage(); // <------ Initialize the Package\n            return Arrays.<ReactPackage>asList(\n           new MainReactPackage(),\n                    ...\n                    new RCTUpdatePackage()\n            );\n        }\n     }\n\n```\n\n##js\n```js\n  import ReactNative,{NativeModules} from \'react-native\'\n  var UpdateManager = NativeModules.UpdateManager;\n  UpdateManager.checkUpdate(function (jsonObject) {\n            if (jsonObject && jsonObject.updateType) {\n                UpdateManager.doUpdate(jsonObject, function (success) {\n                    if (success == "true") {\n                        // Platform.OS===\'android\' && jsonObject.updateType == 2 && UpdateManager.askForReload();\n                        if(jsonObject.updateType == 2){\n                            if(Platform.OS===\'android\'){\n                                UpdateManager.askForReload();\n                            }else {\n                                Alert.alert(\n                                    \'提示\',\n                                    \'有数据更新是否刷新?\',\n                                    [\n                                        {text: \'刷新\', onPress: () => {\n                                            UpdateManager.askForReload();\n                                        }},\n                                        {text: \'取消\', onPress: () => {}, style: \'cancel\'},\n                                    ]\n                                )\n                            }\n                        }\n                    }else {\n                        Alert.alert("提示,下载失败,请稍候再试");\n                    }\n                });\n            }\n        });\n```\n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: '1940a61f73ea5392c71e58c34f5e7f2acb9289dc',
+21 silly publish   bugs: { url: 'https://github.com/bestv2/react-native-code-update/issues' },
+21 silly publish   homepage: 'https://github.com/bestv2/react-native-code-update#readme',
+21 silly publish   _id: 'react-native-code-update@0.2.3',
+21 silly publish   _shasum: '0b33d2a78f60ee75c1bf73107d9ab4981b468dba',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name react-native-code-update
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry http://registry.cnpmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'react-native-code-update',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'react-native-code-update',
+26 silly mapToRegistry   name: 'react-native-code-update',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri http://registry.cnpmjs.org/react-native-code-update
+28 verbose publish registryBase http://registry.cnpmjs.org/
+29 silly publish uploading /Users/wangduo/.npm/react-native-code-update/0.2.3/package.tgz
+30 verbose request uri http://registry.cnpmjs.org/react-native-code-update
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 1:57:33 PM
+33 verbose request id 0839534c7e373c2b
+34 http request PUT http://registry.cnpmjs.org/react-native-code-update
+35 http 413 http://registry.cnpmjs.org/react-native-code-update
+36 verbose headers { server: 'nginx/1.4.6 (Ubuntu)',
+36 verbose headers   date: 'Wed, 10 May 2017 05:58:06 GMT',
+36 verbose headers   'content-type': 'text/plain; charset=utf-8',
+36 verbose headers   'content-length': '17',
+36 verbose headers   connection: 'keep-alive' }
+37 verbose request invalidating /Users/wangduo/.npm/registry.cnpmjs.org/react-native-code-update on PUT
+38 error publish Failed PUT 413
+39 verbose stack Error: 413 Payload Too Large
+39 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+39 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:253:9)
+39 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+39 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:187:22)
+39 verbose stack     at emitTwo (events.js:106:13)
+39 verbose stack     at Request.emit (events.js:191:7)
+39 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+39 verbose stack     at emitOne (events.js:96:13)
+39 verbose stack     at Request.emit (events.js:188:7)
+39 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:969:12)
+40 verbose statusCode 413
+41 verbose cwd /Users/wangduo/workspace/react-native-npms/react-native-code-update
+42 error Darwin 16.5.0
+43 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+44 error node v6.5.0
+45 error npm  v3.10.9
+46 error code E413
+47 error 413 Payload Too Large
+48 error If you need help, you may report this error at:
+48 error     <https://github.com/npm/npm/issues>
+49 verbose exit [ 1, true ]
