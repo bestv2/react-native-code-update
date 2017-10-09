@@ -32,6 +32,9 @@ public class RCTUpdatePackage implements ReactPackage {
         return Collections.emptyList();
     }
 
+    public List<Class<? extends JavaScriptModule>> createJSModules() {
+        return Collections.emptyList();
+    }
     
     public static void setReactInstanceManager(ReactInstanceManager reactInstanceManager) {
         mReactInstanceManager = reactInstanceManager;

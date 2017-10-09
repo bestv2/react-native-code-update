@@ -20,6 +20,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -126,7 +127,8 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         APPID = appId;
         APPNAME = appName;
         CHECK_HOST = checkHost;
-        FILE_BASE_PATH = Environment.getExternalStorageDirectory().toString() + File.separator + APPNAME;
+//        FILE_BASE_PATH = Environment.getExternalStorageDirectory().toString() + File.separator + APPNAME;
+        FILE_BASE_PATH = Environment.getExternalStorageDirectory().toString() + File.separator + application.getPackageName();
         LAST_JS_BUNDLE_LOCAL_PATH = FILE_BASE_PATH + File.separator + "js_bundle";
         JS_BUNDLE_LOCAL_PATH = FILE_BASE_PATH + File.separator + ".js_bundle";
         APK_SAVED_LOCAL_PATH = FILE_BASE_PATH + File.separator + "download_apk";
@@ -611,8 +613,20 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file),
-                "application/vnd.android.package-archive");
+
+        System.out.println("============="+context.getPackageName());
+        //判读版本是否在7.0以上
+        if (Build.VERSION.SDK_INT >= 24) {
+            //provider authorities
+            Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName()+".fileprovider", file);
+            //Granting Temporary Permissions to a URI
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(file),
+                    "application/vnd.android.package-archive");
+        }
+
         context.startActivity(intent);
     }
 
