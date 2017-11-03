@@ -122,7 +122,8 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             return null;
         }
     }
-    public static void init(String appName, String appId, String checkHost, Application application) {
+
+    public static void init(String appName, String appId, String checkHost, Application application, AsyncHttpClient client) {
         APPID = appId;
         APPNAME = appName;
         CHECK_HOST = checkHost;
@@ -131,16 +132,8 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         LAST_JS_BUNDLE_LOCAL_PATH = FILE_BASE_PATH + File.separator + "js_bundle";
         JS_BUNDLE_LOCAL_PATH = FILE_BASE_PATH + File.separator + ".js_bundle";
         APK_SAVED_LOCAL_PATH = FILE_BASE_PATH + File.separator + "download_apk";
-        mClient = new AsyncHttpClient();
-        mClient.addHeader("Accept-Language", Locale.getDefault().toString());
-        mClient.addHeader("Host", checkHost);
-        mClient.addHeader("Connection", "Keep-Alive");
-        mClient.getHttpClient().getParams()
-                .setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);;
+        mClient = client;
 
-    }
-    public static void init(String appName, String appId, String checkHost, Application application, AsyncHttpClient client) {
-        init(appName,appId,checkHost,application);
     }
 
     public RCTUpdateManager(ReactApplicationContext reactContext) {
@@ -622,7 +615,6 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         intent.setAction(Intent.ACTION_VIEW);
 
         System.out.println("============="+context.getPackageName());
-        System.out.println("============="+Build.VERSION.SDK_INT);
         //判读版本是否在7.0以上
         if (Build.VERSION.SDK_INT >= 24) {
             //provider authorities
