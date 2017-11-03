@@ -18,8 +18,6 @@ public class VersionUpdate {
     private String jsBundleVersion;
     private int jsBundleVersionCode;
     private String changeLog;
-    private Boolean slight;
-
     public VersionUpdate(ReadableMap options){
 //        this.setChangeLog(options.getString("changeLog"));
 //        this.setDownloadUrl(options.getString("downloadUrl"));
@@ -124,12 +122,5 @@ public class VersionUpdate {
 
     public void setChangeLog(String changeLog) {
         this.changeLog = changeLog;
-    }
-    public Boolean getSlight() {
-        return slight;
-    }
-
-    public void setSlight(Boolean slight) {
-        this.slight = slight;
     }
 }
