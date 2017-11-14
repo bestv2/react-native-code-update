@@ -133,7 +133,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         APK_SAVED_LOCAL_PATH = FILE_BASE_PATH + File.separator + "download_apk";
         mClient = new AsyncHttpClient();
         mClient.addHeader("Accept-Language", Locale.getDefault().toString());
-        mClient.addHeader("Host", checkHost);
+        mClient.addHeader("Host", checkHost.replace("http://",""));
         mClient.addHeader("Connection", "Keep-Alive");
         mClient.getHttpClient().getParams()
                 .setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);;
