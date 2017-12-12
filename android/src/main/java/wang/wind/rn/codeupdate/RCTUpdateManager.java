@@ -210,6 +210,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             if (progressDialog == null) {
 //            progressDialog = new YProgressDialog(mContext,"下载中...");
                 progressDialog = DialogHelp.getProgressDialog(getCurrentActivity(), "下载中...");
+                progressDialog.setCancelable(false);
                 CharSequence title = "取消下载";
 //                progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, title, new CancelDownloadListener());
 
@@ -348,6 +349,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             });
             dialog.setTitle("发现新版本");
             dialog.setMessage("马上会为您下载并安装。");
+            dialog.setCancelable(false);
             dialog.show();
         } else {
             callback = cb;
