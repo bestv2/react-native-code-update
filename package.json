@@ -1,6 +1,6 @@
 {
   "name": "react-native-code-update",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "react native code update",
   "main": "index.js",
   "scripts": {

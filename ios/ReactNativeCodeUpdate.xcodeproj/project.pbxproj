@@ -9,41 +9,21 @@
 /* Begin PBXBuildFile section */
 		BA1677401E07741500E7F9BE /* RCTUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA16773B1E07741500E7F9BE /* RCTUpdateManager.m */; };
 		BA1677411E07741500E7F9BE /* UpdateDownloadHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BA16773D1E07741500E7F9BE /* UpdateDownloadHandler.m */; };
-		BA1677BA1E077ECD00E7F9BE /* aes.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677961E07759D00E7F9BE /* aes.h */; };
-		BA1677BB1E077ECD00E7F9BE /* aes_via_ace.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677971E07759D00E7F9BE /* aes_via_ace.h */; };
 		BA1677BC1E077ECD00E7F9BE /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677981E07759D00E7F9BE /* aescrypt.c */; };
 		BA1677BD1E077ECD00E7F9BE /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677991E07759D00E7F9BE /* aeskey.c */; };
-		BA1677BE1E077ECD00E7F9BE /* aesopt.h in Sources */ = {isa = PBXBuildFile; fileRef = BA16779A1E07759D00E7F9BE /* aesopt.h */; };
 		BA1677BF1E077ECD00E7F9BE /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = BA16779B1E07759D00E7F9BE /* aestab.c */; };
-		BA1677C01E077ECD00E7F9BE /* aestab.h in Sources */ = {isa = PBXBuildFile; fileRef = BA16779C1E07759D00E7F9BE /* aestab.h */; };
-		BA1677C11E077ECD00E7F9BE /* brg_endian.h in Sources */ = {isa = PBXBuildFile; fileRef = BA16779D1E07759D00E7F9BE /* brg_endian.h */; };
-		BA1677C21E077ECD00E7F9BE /* brg_types.h in Sources */ = {isa = PBXBuildFile; fileRef = BA16779E1E07759D00E7F9BE /* brg_types.h */; };
 		BA1677C31E077ECD00E7F9BE /* entropy.c in Sources */ = {isa = PBXBuildFile; fileRef = BA16779F1E07759D00E7F9BE /* entropy.c */; };
-		BA1677C41E077ECD00E7F9BE /* entropy.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A01E07759D00E7F9BE /* entropy.h */; };
 		BA1677C51E077ECD00E7F9BE /* fileenc.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A11E07759D00E7F9BE /* fileenc.c */; };
-		BA1677C61E077ECD00E7F9BE /* fileenc.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A21E07759D00E7F9BE /* fileenc.h */; };
 		BA1677C71E077ECD00E7F9BE /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A31E07759D00E7F9BE /* hmac.c */; };
-		BA1677C81E077ECD00E7F9BE /* hmac.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A41E07759D00E7F9BE /* hmac.h */; };
 		BA1677C91E077ECD00E7F9BE /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A51E07759D00E7F9BE /* prng.c */; };
-		BA1677CA1E077ECD00E7F9BE /* prng.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A61E07759D00E7F9BE /* prng.h */; };
 		BA1677CB1E077ECD00E7F9BE /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A71E07759D00E7F9BE /* pwd2key.c */; };
-		BA1677CC1E077ECD00E7F9BE /* pwd2key.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A81E07759D00E7F9BE /* pwd2key.h */; };
 		BA1677CD1E077ECD00E7F9BE /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677A91E07759D00E7F9BE /* sha1.c */; };
-		BA1677CE1E077ECD00E7F9BE /* sha1.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AA1E07759D00E7F9BE /* sha1.h */; };
-		BA1677CF1E077ECD00E7F9BE /* Common.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AB1E07759D00E7F9BE /* Common.h */; };
 		BA1677D01E077ECD00E7F9BE /* Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AC1E07759D00E7F9BE /* Info.plist */; };
-		BA1677D11E077ECD00E7F9BE /* crypt.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AE1E07759D00E7F9BE /* crypt.h */; };
 		BA1677D21E077ECD00E7F9BE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677AF1E07759D00E7F9BE /* ioapi.c */; };
-		BA1677D31E077ECD00E7F9BE /* ioapi.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B01E07759D00E7F9BE /* ioapi.h */; };
 		BA1677D41E077ECD00E7F9BE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B11E07759D00E7F9BE /* mztools.c */; };
-		BA1677D51E077ECD00E7F9BE /* mztools.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B21E07759D00E7F9BE /* mztools.h */; };
 		BA1677D61E077ECD00E7F9BE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B31E07759D00E7F9BE /* unzip.c */; };
-		BA1677D71E077ECD00E7F9BE /* unzip.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B41E07759D00E7F9BE /* unzip.h */; };
 		BA1677D81E077ECD00E7F9BE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B51E07759D00E7F9BE /* zip.c */; };
-		BA1677D91E077ECD00E7F9BE /* zip.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B61E07759D00E7F9BE /* zip.h */; };
-		BA1677DA1E077ECD00E7F9BE /* SSZipArchive.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B71E07759D00E7F9BE /* SSZipArchive.h */; };
 		BA1677DB1E077ECD00E7F9BE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B81E07759D00E7F9BE /* SSZipArchive.m */; };
-		BA1677DC1E077ECD00E7F9BE /* ZipArchive.h in Sources */ = {isa = PBXBuildFile; fileRef = BA1677B91E07759D00E7F9BE /* ZipArchive.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -248,41 +228,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA1677BA1E077ECD00E7F9BE /* aes.h in Sources */,
-				BA1677BB1E077ECD00E7F9BE /* aes_via_ace.h in Sources */,
 				BA1677BC1E077ECD00E7F9BE /* aescrypt.c in Sources */,
 				BA1677BD1E077ECD00E7F9BE /* aeskey.c in Sources */,
-				BA1677BE1E077ECD00E7F9BE /* aesopt.h in Sources */,
 				BA1677BF1E077ECD00E7F9BE /* aestab.c in Sources */,
-				BA1677C01E077ECD00E7F9BE /* aestab.h in Sources */,
-				BA1677C11E077ECD00E7F9BE /* brg_endian.h in Sources */,
-				BA1677C21E077ECD00E7F9BE /* brg_types.h in Sources */,
 				BA1677C31E077ECD00E7F9BE /* entropy.c in Sources */,
-				BA1677C41E077ECD00E7F9BE /* entropy.h in Sources */,
 				BA1677C51E077ECD00E7F9BE /* fileenc.c in Sources */,
-				BA1677C61E077ECD00E7F9BE /* fileenc.h in Sources */,
 				BA1677C71E077ECD00E7F9BE /* hmac.c in Sources */,
-				BA1677C81E077ECD00E7F9BE /* hmac.h in Sources */,
 				BA1677C91E077ECD00E7F9BE /* prng.c in Sources */,
-				BA1677CA1E077ECD00E7F9BE /* prng.h in Sources */,
 				BA1677CB1E077ECD00E7F9BE /* pwd2key.c in Sources */,
-				BA1677CC1E077ECD00E7F9BE /* pwd2key.h in Sources */,
 				BA1677CD1E077ECD00E7F9BE /* sha1.c in Sources */,
-				BA1677CE1E077ECD00E7F9BE /* sha1.h in Sources */,
-				BA1677CF1E077ECD00E7F9BE /* Common.h in Sources */,
 				BA1677D01E077ECD00E7F9BE /* Info.plist in Sources */,
-				BA1677D11E077ECD00E7F9BE /* crypt.h in Sources */,
 				BA1677D21E077ECD00E7F9BE /* ioapi.c in Sources */,
-				BA1677D31E077ECD00E7F9BE /* ioapi.h in Sources */,
 				BA1677D41E077ECD00E7F9BE /* mztools.c in Sources */,
-				BA1677D51E077ECD00E7F9BE /* mztools.h in Sources */,
 				BA1677D61E077ECD00E7F9BE /* unzip.c in Sources */,
-				BA1677D71E077ECD00E7F9BE /* unzip.h in Sources */,
 				BA1677D81E077ECD00E7F9BE /* zip.c in Sources */,
-				BA1677D91E077ECD00E7F9BE /* zip.h in Sources */,
-				BA1677DA1E077ECD00E7F9BE /* SSZipArchive.h in Sources */,
 				BA1677DB1E077ECD00E7F9BE /* SSZipArchive.m in Sources */,
-				BA1677DC1E077ECD00E7F9BE /* ZipArchive.h in Sources */,
 				BA1677401E07741500E7F9BE /* RCTUpdateManager.m in Sources */,
 				BA1677411E07741500E7F9BE /* UpdateDownloadHandler.m in Sources */,
 			);
