@@ -209,7 +209,13 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
         try {
             if (progressDialog == null) {
 //            progressDialog = new YProgressDialog(mContext,"下载中...");
-                progressDialog = DialogHelp.getProgressDialog(getCurrentActivity(), "下载中...");
+                final Activity currentActivity = getCurrentActivity();
+                if (currentActivity == null) {
+                    // The currentActivity can be null if it is backgrounded / destroyed, so we simply
+                    // no-op to prevent any null pointer exceptions.
+                    return;
+                }
+                progressDialog = DialogHelp.getProgressDialog(currentActivity, "下载中...");
                 progressDialog.setCancelable(false);
                 CharSequence title = "取消下载";
 //                progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, title, new CancelDownloadListener());
@@ -225,7 +231,7 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
                 public void handleMessage(Message msg) {
                     // TODO Auto-generated method stub
                     super.handleMessage(msg);
-                    AlertDialog.Builder dialog;
+//                    AlertDialog.Builder dialog;
                     switch (msg.what) {
                         case 0:
                             //下载失败
@@ -325,7 +331,13 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             checkUpdate(pInfo, mCheckUpdateHandle);
         } else {
 //            MainApplication.showToast(R.string.tip_network_error);
-            AlertDialog.Builder dialog = DialogHelp.getMessageDialog(getCurrentActivity(), mContext.getString(R.string.tip_network_error));
+            final Activity currentActivity = getCurrentActivity();
+            if (currentActivity == null) {
+                // The currentActivity can be null if it is backgrounded / destroyed, so we simply
+                // no-op to prevent any null pointer exceptions.
+                return;
+            }
+            AlertDialog.Builder dialog = DialogHelp.getMessageDialog(currentActivity, mContext.getString(R.string.tip_network_error));
 //            dialog.setTitle();
             dialog.show();
 
@@ -340,7 +352,13 @@ public class RCTUpdateManager extends ReactContextBaseJavaModule {
             AlertDialog.Builder dialog;
             String changeLog = update.getChangeLog();
             String toastMessage = (update.getChangeLog() == null ? "" : (changeLog));
-            dialog = DialogHelp.getMessageDialog(getCurrentActivity(), toastMessage, new DialogInterface.OnClickListener() {
+            final Activity currentActivity = getCurrentActivity();
+            if (currentActivity == null) {
+                // The currentActivity can be null if it is backgrounded / destroyed, so we simply
+                // no-op to prevent any null pointer exceptions.
+                return;
+            }
+            dialog = DialogHelp.getMessageDialog(currentActivity, toastMessage, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     callback = cb;
