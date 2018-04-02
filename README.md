@@ -1,27 +1,27 @@
 # react-native-code-update
 
-##更新请求地址为： 
-{code.update.url}/app/checkUpdate?platform=ios&app_id={yourAppId}&app_version_code={currentAppVersionCode}&js_version_code={currentJSVersionCode}  
+## 更新请求地址为： 
+`{code.update.url}/app/checkUpdate?platform=ios&app_id={yourAppId}&app_version_code={currentAppVersionCode}&js_version_code={currentJSVersionCode}` 
 返回内容：res
-{
+`{
     success: 1;
     updateType: 0;
-} success:标示请求成功，   
+}` success:标示请求成功，   
 updateType: 
 0表示没有更新，  
-1表示为android平台时检测到新的apk安装包, res.versionName版本名称，res.versionCode:版本好，res.downloadUrl 下载连接，res.changeLog 更新日志   
-2表示有js包更新，res.jsBundleVersion js版本名称, res.jsBundleVersionCode js版本号，res.downloadUrl,res.changeLog
-##ios:
-info.plist中增加：
-code.update.app_id（string） yourAppId
-code.update.url（string） http://xxxxx
+1表示为android平台时检测到新的apk安装包, res.versionName版本名称，res.versionCode:版本好，res.downloadUrl 下载连接，res.changeLog 更新日志    
+2表示有js包更新，res.jsBundleVersion js版本名称, res.jsBundleVersionCode js版本号，res.downloadUrl,res.changeLog 
+## ios:
+info.plist中增加： 
+`code.update.app_id（string） yourAppId`
+`code.update.url（string） http://xxxxx`
 ```Object-c
-		jsCodeLocation = [RCTUpdateManager bundleURL];
-		RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation														moduleName:@"XXX"													initialProperties:nil
+jsCodeLocation = [RCTUpdateManager bundleURL];
+RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation														moduleName:@"XXX"													initialProperties:nil
 										launchOptions:launchOptions];
 ```
 
-##android
+## android
 在Application.java
 ```java
     @Override
@@ -49,7 +49,7 @@ code.update.url（string） http://xxxxx
 
 ```
 
-##js
+## js
 ```js
   import ReactNative,{NativeModules} from 'react-native'
   var UpdateManager = NativeModules.UpdateManager;
